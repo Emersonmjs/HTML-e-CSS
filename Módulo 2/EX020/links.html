@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        a{
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:visited{
+            color: darkred;
+
+        }
+
+        a:hover{
+            color: black;
+            text-decoration: underline;
+            background-color: chartreuse;
+        }
+        a:active {
+            color: yellow;
+        }
+        a:hover::before{
+            content: '⇒';
+        }
+        a:hover::after{
+            content: '⇐';
+        } 
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a target="_blank" href="https://github.com">Link para o github</a></li>
+        <li><a target="_blank" href="https://www.youtube.com" class="especial">Link para o youtube</a></li>
+        <li><a target="_blank" href="https://www.cursoemvideo.com">Link para o curso em video</a></li>
+    </ul>
+</body>
+</html>

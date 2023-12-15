@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grouping Tags</title>
+    <style>
+        body{
+            background-color: rgb(204, 204, 204);
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+        }
+        header{
+            background-color: black;
+            color: white;
+            margin-top: 0px;
+            padding: 5px;
+            
+        }
+        header > h1{
+            margin-top: 12px;
+            margin-left: 10px;
+        }
+        nav > a {
+            text-decoration: none;
+            color: white;
+            margin-right: 20px;
+            text-align: right;
+            
+        }
+        nav > a:hover{
+            text-decoration: underline;
+        }
+        nav{
+            text-align: left;
+            width: 300px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: black;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.377);
+        }
+        .cabecalho{
+            height: 60px;
+        }
+        main{
+            background-color: white;
+            margin-top: 20px;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        footer{
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        footer > p{
+            margin: 0px;
+        }
+        section{
+            background-color: rgb(150, 150, 150);
+            padding: 10px 10px 2px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        section#ultima{
+            margin-bottom: 0px;
+        }
+        section > h1{
+            margin: 0px;
+        }
+        article > h1{
+            margin-bottom: 10px;
+        }
+        h1{
+            margin: 0px;
+        }
+        article{
+            background-color: rgb(219, 219, 219);
+            padding: 10px 5px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Logo</h1>
+        <nav>
+            <a href="#">Sobre mim</a>
+            <a href="#">Projetos</a>
+            <a href="#">Contato</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1>Sobre mim</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, rerum vel! Temporibus cum quaerat exercitationem vel eligendi culpa, reiciendis ipsam? Natus aperiam eaque atque ipsum beatae, ex accusamus. Rerum, sed!</p>
+        </section>
+        <section id="ultima">
+            <h1>Formação</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae quisquam sed expedita deserunt fugiat fugit? Officia quibusdam delectus deleniti consequuntur? Ipsum reprehenderit vel deleniti nobis labore accusamus quod, exercitationem natus?</p>
+            <article>
+                <h1>Técnico em informática para internet</h1>
+                <aside>
+                    Formação técnica no SENAI - Feira de Santana
+                </aside>
+            </article>
+            <article>
+                <h1>Novo Ensino Médio</h1>
+                <aside>
+                    Formação no Novo Ensino Médio na instituição do SESI - Feira de Santana.
+                </aside>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>Desenvolvido por Emerson Martins &copy;</p>
+    </footer>
+</body>
+</html>
