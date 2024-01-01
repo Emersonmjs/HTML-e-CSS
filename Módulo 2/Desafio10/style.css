@@ -67,6 +67,7 @@ header > p{
 img {
     margin: auto;
     display: block;
+    width: 100%;
 }
 
 img.bugdroid{
