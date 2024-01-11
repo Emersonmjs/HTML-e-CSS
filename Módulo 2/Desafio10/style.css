@@ -149,6 +149,7 @@ div.video{
     margin: 0px -10px 10px -10px;
     padding-bottom: 57.7%; /* Ele vai regular a parte preta que fica ao lado do video e também o tamanho dele na parte do tamanho da parte de baixo.*/
     position: relative;
+    
 }
 
 div.video > iframe {
@@ -157,6 +158,7 @@ div.video > iframe {
     left: 5%;
     width: 90%;
     height: 90%;
+    
 }
 
 aside{
