@@ -247,3 +247,9 @@ section > #titulo > p{
 #home span {
     margin-right: 3px;
 }
+
+@media screen and (min-width: 600px){
+    #bottom-bar{
+        position: fixed;
+    }
+}
