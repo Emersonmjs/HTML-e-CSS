@@ -211,7 +211,7 @@ section > #titulo > p{
 #bottom-bar{
     display: flex;
     padding: 5px 20px;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     align-items: center;
     background-color: #f8f8f8;
