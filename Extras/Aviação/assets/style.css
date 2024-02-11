@@ -45,10 +45,6 @@ header > nav > p{
     font-size: 0.8em;
 }
 
-main{
-    padding: 20px;
-}
-
 .notificacoes {
     float: right;
     font-size: 30px;
@@ -103,7 +99,6 @@ main{
     margin-top: 25px;
     margin-left: 20px;
     display: flex;
-    width: 93.4vw;
     overflow: hidden;
 }
 
@@ -121,6 +116,9 @@ main{
     border-radius: 50px;
 }
 
+section{
+    padding: 20px 0px 20px 20px;
+}
 
 section > #titulo{
     height: 30px;
@@ -135,7 +133,7 @@ section > #titulo > p{
     box-sizing: border-box;
     margin-top: 5px;
     position: absolute;
-    right: 0;
+    right: 20px;
     font-size: 0.8em;
     text-align: right;
 }
@@ -147,7 +145,6 @@ section > #titulo > p{
 
 #slides-tamanho{
     display: flex;
-    width: 93.6vw;
     overflow: hidden;
 }
 #slide-lista{
