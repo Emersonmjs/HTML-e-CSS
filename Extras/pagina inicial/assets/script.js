@@ -1,0 +1,1 @@
+corpo = document.querySelector('body');

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Login/estilos/style.css">
+    <title>Login</title>
+</head>
+<body>
+    <main>
+        <section id="login">
+            <form action="login.php" method="post" autocomplete="on">
+                <h1>Login</h1>
+                <div class="info">
+                    <label for="email">Email: </label><br>
+                    <input type="email" name="email" id="email" required placeholder="Digite seu email" maxlength="50" autocomplete="email"><br>
+                </div>
+                <div class="info">
+                    <label for="senha">Senha: </label><br>
+                    <input type="password" name="senha" id="senha" required placeholder="Digite sua senha" minlength="8" maxlength="20" autocomplete="current-password">
+                    <p><a href="esqueceu.html">Esqueceu a senha?</a></p>
+                </div>
+
+                <input type="submit" value="Entrar">
+            </form>
+            <aside>
+                <a href="#">Cadastre-se</a>
+            </aside>
+        </section>
+    </main>
+</body>
+</html>

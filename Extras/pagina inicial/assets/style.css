@@ -1,0 +1,12 @@
+@charset "UFT-8";
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    background-image: url('../imagens/desktop-wallpaper-red-forest.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
