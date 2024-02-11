@@ -221,7 +221,7 @@ section > #titulo > p{
 
 #bottom-bar li{
     list-style-type: none;
-    margin-right: 35px;
+    margin: 0px auto;
 }
 
 #bottom-bar  a{
@@ -235,6 +235,7 @@ section > #titulo > p{
     border-radius: 50px;
     font-size: 0.7em;
     position: relative;
+    margin-left: 0px;
 }
 
 #home > a{
