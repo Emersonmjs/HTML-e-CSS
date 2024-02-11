@@ -249,8 +249,9 @@ section > #titulo > p{
     margin-right: 3px;
 }
 
-@media screen and (min-width: 600px){
+@media screen and (min-width: 580px){
     #bottom-bar{
         position: fixed;
+        bottom: 0;
     }
 }
