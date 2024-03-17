@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --font-padrao: "Fira Sans Condensed", Arial, Helvetica, sans-serif;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    background: black url(../imagens/coca-cola-19-menor.png) center 60% / 900px no-repeat;
+    color: white;
+}
+
+header{
+    margin: 35px 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a{
+    text-decoration: none;
+    color: white;
+}
+
+header a > img{
+    color: white;
+    width: 23px;
+    height: 23px;
+}
+
+header > h1{
+    font-family: var(--font-padrao);
+    font-weight: 600;
+    font-size: 40px;
+}
+
+header aside{
+    min-width: 130px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav > a{
+    padding: 16px;
+    margin: 0px 5px;
+    font-weight: lighter;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+section{
+    display: flex;
+    align-items: flex-end;
+}
+
+section img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-65%, -40%);
+}
+
+section .description{
+    font-family: var(--font-padrao);
+    width: 270px;
+    position: absolute;
+    right: 20%;
+    bottom: 0px;
+}
+
+.description h2{
+    font-size: 3em;
+}
+
+.description p{
+    font-weight: 200;
+}

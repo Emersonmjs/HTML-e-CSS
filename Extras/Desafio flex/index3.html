@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Inherit e initial</title>
+    <style>
+        *{
+            color: red;
+        }
+
+        html{
+            color: yellow;
+        }
+
+        #d1{
+            color: blue;
+        }
+
+        #d2{
+            color: greenyellow;
+        }
+
+        h1, p{
+            color: initial;
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">
+        <h1>Titulo 1</h1>
+        <p>Paragrafo 1</p>
+    </div>
+    <div id="d2">
+        <h1>Titulo 2</h1>
+        <p>Paragrafo 2</p>
+    </div>
+</body>
+</html>
