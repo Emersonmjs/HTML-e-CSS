@@ -35,9 +35,18 @@ header a{
     color: white;
 }
 
-header > nav{
-    display: block;
-    margin-left: 20px;
+header h1, nav, aside{
+    flex-grow: 1;
+}
+
+header aside{
+    flex-grow: 0;
+}
+
+header nav{
+    display: flex;
+    flex-grow: 10;
+    justify-content: center;
 }
 
 header > nav > a{
