@@ -38,7 +38,11 @@ html{
 }
 
 body{
-    background-image: linear-gradient(to bottom left, var(--cor-secundaria) , var(--cor-principal) 20%, var(--cor-secundaria) 150%);
+    background-size: 750px 750px, 500px 500px;
+    background-image: radial-gradient(#fcfc9857, transparent 70%), radial-gradient(#fafbab8f, transparent 70%);
+    background-position: 850px -350px, -250px 450px;
+    background-repeat: no-repeat, no-repeat;
+    background-color: var(--cor-principal);
     padding: 15px 60px 0px;
     font-family: var(--font-principal);
 }
