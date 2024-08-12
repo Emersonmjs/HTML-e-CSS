@@ -82,10 +82,20 @@ header > nav > p{
     z-index: 1;
 }
 
+@keyframes slide-infinito{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-273px);
+    }
+}
 
 #procurar label{
     display: none;
+
 }
+
 
 .filtro{
     float: right;
@@ -145,12 +155,14 @@ section > #titulo > p{
     float: left;
 }
 
+
 #slides-tamanho{
     display: flex;
     overflow: hidden;
 }
 #slide-lista{
     display: flex;
+    position: relative;
 }
 
 #slides-tamanho img{
@@ -255,5 +267,21 @@ section > #titulo > p{
     #bottom-bar{
         position: fixed;
         bottom: 0;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    section{
+        position: relative;
+    }
+    .next, .prev{
+        position: absolute;
+        top: 55%;
+        font-size: 35px;
+        color: white;
+        cursor: pointer;
+    }
+    .next{
+        right: 10px;
     }
 }
