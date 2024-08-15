@@ -102,31 +102,30 @@
     }
 }
 
-#tamanho-slide{
-    display: flex;
-    width: 306px;
+#slide-wrapper{
+    width: 100%;
     overflow: hidden;
-    .slide-item{
-        margin-right: 0px;
-        img{
-            width: 320px;
-        }
-        
-    }
+    
 }
 
-#slide-tamanho-popular{
-    @extend #tamanho-slide;
-    width: 97.7vw;
-    .slide-item{
-        margin-right: 20px;
-        img{
-        
-            width: 110px;
-            height: 100px;
-        }
-    } 
+#slide-list{
+    display: flex;
     
+    .slide-item{
+        width: 90vw;
+        flex-shrink: 0;
+        margin: 5px 8px 5px 0px;
+        .slide-content{
+            width: 100%;
+            height: 250px;
+        }
+
+        img{
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
 #bottom-bar{
