@@ -5,6 +5,9 @@
 
 *{
     @include padrao;
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
 }
 
 ::-webkit-scrollbar{
@@ -105,23 +108,69 @@
 #slide-wrapper{
     width: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    button{
+        border: none;
+        z-index: 2;
+    }
+    #previous-slide{
+        position: absolute;
+        left: 20px;
+        background-color: transparent;
+        color: white;
+        span{
+            background-color: transparent;
+            font-size: 35px;
+        }
+    }
+
+    #next-slide{
+        position: absolute;
+        right: 20px;
+        background-color: transparent;
+        color: white;
+        span{
+            background-color: transparent;
+            font-size: 35px;
+        }
+    }
     
 }
 
+
 #slide-list{
     display: flex;
-    
     .slide-item{
         width: 90vw;
         flex-shrink: 0;
         margin: 5px 8px 5px 0px;
+        overflow: hidden;
+        border-radius: 10px;
         .slide-content{
             width: 100%;
             height: 250px;
+            
+            .description-item{
+                position: relative;
+                bottom: calc(100% - 60%);
+                color: white;
+                background-image: linear-gradient(to top, black 10%, transparent);
+                background-color: transparent;
+                padding-bottom: 50px;
+                h4,p{
+                    background-color: transparent;
+                    text-align: left;
+                    position: relative;
+                    bottom: -10px;
+                    left: 10px;
+                    margin: 0;
+                }
+            }
         }
 
         img{
-            border-radius: 10px;
             width: 100%;
             height: 100%;
         }
