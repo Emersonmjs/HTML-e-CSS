@@ -17,3 +17,7 @@ $font-secundaria: kavoon;
     background-color: $cor-de-fundo;
     font-family: $fonte-padrao;
 }
+
+@mixin espacamento-padrao{
+    padding: 9px;
+}

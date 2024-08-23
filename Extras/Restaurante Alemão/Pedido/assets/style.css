@@ -15,4 +15,19 @@
 #voltar img {
   width: 40px;
   margin-left: 5px;
-}/*# sourceMappingURL=style.css.map */
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+#order {
+  padding: 9px;
+}
+
+.imagem-principal {
+  width: 300px;
+}
+
+/*# sourceMappingURL=style.css.map */

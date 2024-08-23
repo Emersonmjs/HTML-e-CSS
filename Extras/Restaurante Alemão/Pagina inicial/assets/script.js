@@ -22,40 +22,39 @@ function translateSlide(position){
 
 
 function setVisibleSlide(index, animate){
-    
-    const position = centerVisibleSlide(index)
+    const position = centerVisibleSlide(index = index)
     state.indexAtual = index
-    slideList.style.transition = `transition: ${animate}`
+    slideList.style.transition = animate === true ? "transition: .5s" : "none"
     translateSlide(position)
 }
 
 function centerVisibleSlide(index){
     const slideItem = slideItems[index]
     const slideTamanho = slideItem.clientWidth
-    const windowWidth = window.innerWidth
+    const windowWidth = document.body.offsetWidth
     const margin = (windowWidth - slideTamanho) / 2
     const position = margin - (index * slideTamanho)
     return position
 }
 
-function createClonedSlides(){
-    const slideItem = slideItems[0].cloneNode()
+// function createClonedSlides(){
+//     const slideItem = slideItems[0].cloneNode()
 
-}
+// }
 
 function nextSlide(){
-    setVisibleSlide(state.indexAtual + 1)
+    setVisibleSlide(state.indexAtual + 1, true)
 }
 
 function previousSlide(){
-    setVisibleSlide(state.indexAtual - 1)
+    setVisibleSlide(state.indexAtual - 1, true)
 }
 
-function mouseDown(event){
+function mouseDown(event, index){
     const item =  event.currentTarget
     state.inicialPoint = event.clientX
     state.currentPosition = state.inicialPoint - state.savedPosition
-    
+    state.indexAtual = index
     item.addEventListener("mouseout", (parte)=>{
         if(parte.buttons === 1){
             console.log("Botão saiu pressionado")
@@ -82,30 +81,33 @@ function mouseDown(event){
 function mouseMove(event){
     const position = event.clientX - state.currentPosition
     state.moviment = event.clientX - state.inicialPoint
-    console.log("pixel do mousemove", event.clientX, "-", "ponto de partida", state.inicialPoint, " = ", state.moviment)
-    slideList.style.transform = `translateX(${parseInt(position)}px)`;
-    state.savedPosition = position
+    translateSlide(position)
 }
 
 function mouseUp(event){
     const slideItem = event.currentTarget
     const slideWidth = slideItem.clientWidth
     if(state.moviment < - 150){
-        const position = (state.indexAtual + 1) * slideWidth
-        translateSlide(-position)
+        nextSlide()
     }
     if(state.moviment > 150){
-        const position = (state.indexAtual + 1) * slideWidth
-        translateSlide(-position)
+        previousSlide()
+    }else{
+        setVisibleSlide(state.indexAtual, true)
     }
-    const item = event.currentTarget
-    item.removeEventListener("mousemove", mouseMove)
+    
+    slideItem.removeEventListener("mousemove", mouseMove)
 }
 
 function onSlideListTransitionEnd(){
     
     if(state.indexAtual === slideItems.length - 2){
-        setVisibleSlide(2, "none")
+        console.log(state.indexAtual)
+        setVisibleSlide(2, false)
+    }
+    if(state.indexAtual ===  1){
+        console.log(state.indexAtual)
+        setVisibleSlide(slideItems.length - 3, false)
     }
 }
 
@@ -116,11 +118,16 @@ slideItems.forEach((item, index)=>{
 
     item.addEventListener("mouseup", mouseUp)
 
-    item.addEventListener("mousedown", mouseDown)
+    item.addEventListener("mousedown", (event)=>{
+        mouseDown(event, index)
+    })
     
 })
 
-slideList.addEventListener("transitionend", onSlideListTransitionEnd)
-
 nextSlideButton.addEventListener("click", nextSlide)
 previousSlideButton.addEventListener("click", previousSlide)
+
+slideList.addEventListener("transitionend", onSlideListTransitionEnd)
+
+
+setVisibleSlide(index = 2, true)
