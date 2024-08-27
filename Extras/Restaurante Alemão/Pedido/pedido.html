@@ -10,35 +10,41 @@
     </head>
 <body>
     <nav id="voltar">
-        <img src="icon-fotos/arrow-back.png" alt="Voltar">
+        <img src="../padroes/icons-padrao/arrow-back.png" alt="Voltar">
+        <div class="progresso-total">
+            <div class="progresso"></div>
+        </div>
     </nav>
     <main>
         <section id="order">
             <h1>Pedido</h1>
             <img src="../Imagens/Joelho de porco-principal-slide.jpg" alt="" class="imagem-principal">
             <div id="control-order">
-                <img src="icon-fotos/add.png" alt="Adicionar">
-                <output>1</output>
-                <img src="icon-fotos/remove.png" alt="Remover">
-                <img src="icon-fotos/Filter.svg" alt="">
+                <div id="controle-quantidade">
+                    <img src="icon-fotos/add.png" alt="Adicionar" id="adicionar-quantidade">
+                    <output>1</output>
+                    <img src="icon-fotos/remove.png" alt="Remover" id="remover-quantidade">
+                </div>
+                <img src="icon-fotos/Filter.svg" alt="" id="filtro">
             </div>
             <div id="detalhes">
+                <h2>Detalhes</h2>
                 <div class="item-product">
-                    <p>Produto 1</p>
+                    <p>Produto 1: xxxxxxxxxxxx</p>
                     <output>R$ 0,00</output>
                 </div>
                 <div class="item-product">
-                    <p>Produto 2</p>
+                    <p>Produto 2: xxxxxx</p>
                     <output>R$ 0,00</output>
                 </div>
                 <div class="item-product">
-                    <p>Produto 3</p>
+                    <p>Produto 3: xxxxxxxx</p>
                     <output>R$ 0,00</output>
                 </div>
-                <output>Total: R$ 0,00</output>
+                <output id="total-compra">Total: R$ 0,00</output>
             </div>
         </section>
-        <a href="">Comprar</a>
+        <a id="comprar-item" href="">Comprar</a>
     </main>
 </body>
 </html>

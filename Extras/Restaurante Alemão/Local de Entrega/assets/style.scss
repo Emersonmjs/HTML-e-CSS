@@ -1,0 +1,81 @@
+@charset "UTF-8";
+@import "../../padroes/variaveis.scss";
+@import "../../padroes/componentes.scss";
+
+*{
+    @include padrao;
+}
+
+#voltar{
+    @include voltar;
+    .progresso-total{
+        background-color: rgba(240, 239, 239, 0.466);
+        border-top: 2px solid black;
+        border-bottom: 0px;
+        .progresso{
+            background-color: $cor-de-feedback;
+            height: 7px;
+            width: 50%;
+            border-bottom: none;
+            z-index: 2;
+        }
+    
+    }
+}
+
+::-webkit-scrollbar{
+    height: 0;
+    width: 0;
+}
+
+main {
+    padding-top: 20px;
+    h2{
+        @include espacamento-padrao;
+    }
+}
+
+
+#search-local-div{
+    @include search;
+    height: 70px;
+    #search-local{
+        @include input-search;
+    }
+    #search-item{
+        @include search-item;
+    }
+}
+
+#local-de-entrega{
+    img{
+        width: 94.5%;
+        margin: 0px 10px 20px 10px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.267);
+        border-radius: 5px;
+    }
+}
+
+section{
+    #locais-salvos{
+        border-bottom: 2px solid black;
+        h3{
+            margin-left: 10px;
+        }
+        div{
+            p{
+                margin-left: 10px;
+                margin-bottom:0px;
+            }
+            border-top: 2px solid black;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+}
+
+
+#comprar-item{
+    @include botao-cta;
+    margin-top: 30px;
+}

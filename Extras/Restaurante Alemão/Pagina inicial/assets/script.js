@@ -1,133 +1,184 @@
-const slideList = document.querySelector("#slide-list")
-const slideItems = document.querySelectorAll(".slide-item")
-const previousSlideButton = document.querySelector("#previous-slide")
-const nextSlideButton = document.querySelector("#next-slide")
+const slidesTamanho = document.querySelector("#slide-wrapper")
+let slideItems = document.querySelectorAll('.slide-item')
+const slideLista = document.querySelector('#slide-list')
+const nextButton = document.querySelector('#next-slide')
+const prevButton = document.querySelector('#previous-slide')
+let slideInterval
 
 
 const state = {
-    inicialPoint: 0,
-    currentPosition: 0,
+    startingPoint: 0,
     savedPosition: 0,
-    isMouseDown: false,
-    posicaoPagina: 0,
-    indexAtual: 0,
-    moviment: 0
+    currentPoint: 0,
+    moviment: 0,
+    currentSlideIndex: 0,
+    autoPlay: true,
+    timeInterval: 0
 }
 
-
-function translateSlide(position){
+function translateSlide({position}){
     state.savedPosition = position
-    slideList.style.transform = `translateX(${position}px)`
+    slideLista.style.transform = `translateX(${position}px)`
 }
 
-
-function setVisibleSlide(index, animate){
-    const position = centerVisibleSlide(index = index)
-    state.indexAtual = index
-    slideList.style.transition = animate === true ? "transition: .5s" : "none"
-    translateSlide(position)
-}
-
-function centerVisibleSlide(index){
+function getCenterPosition({ index }){
     const slideItem = slideItems[index]
-    const slideTamanho = slideItem.clientWidth
-    const windowWidth = document.body.offsetWidth
-    const margin = (windowWidth - slideTamanho) / 2
-    const position = margin - (index * slideTamanho)
+    const slideWidth = slideItem.clientWidth
+    const windowWidth = window.innerWidth
+    const margin = (windowWidth - slideWidth) / 2
+    const position = (index * slideWidth) - margin
     return position
 }
 
-// function createClonedSlides(){
-//     const slideItem = slideItems[0].cloneNode()
-
-// }
+function setVisibleSlide({index, animate}){
+    if(index === 0 || index === slideItems.length - 1){
+        index = state.currentSlideIndex
+    }
+    const position = getCenterPosition({index}) //Quando o valor da propriedade da função é o mesmo da outra, coloque um só que funciona para os dois. Ex: se tiver ({index: index}) substitua por ({index})
+    state.currentSlideIndex = index
+    slideLista.style.transition = animate ? "transform .5s" : "none"
+    translateSlide({position: -position})
+          
+}
 
 function nextSlide(){
-    setVisibleSlide(state.indexAtual + 1, true)
+    setVisibleSlide({index: state.currentSlideIndex + 1, animate: true})
 }
 
 function previousSlide(){
-    setVisibleSlide(state.indexAtual - 1, true)
+    setVisibleSlide({index: state.currentSlideIndex - 1, animate: true})
 }
 
-function mouseDown(event, index){
-    const item =  event.currentTarget
-    state.inicialPoint = event.clientX
-    state.currentPosition = state.inicialPoint - state.savedPosition
-    state.indexAtual = index
-    item.addEventListener("mouseout", (parte)=>{
-        if(parte.buttons === 1){
-            console.log("Botão saiu pressionado")
-            state.inicialPoint = parte.clientX
-            window.addEventListener("mousemove", (event)=>{
-                if(event.buttons === 1){
-                    mouseMove(event)
-                    state.isMouseDown = true
-                }else{
-                    console.log("soltei")
-                    item.removeEventListener("mousemove", mouseMove)
-                    state.isMouseDown = false
-                }
-            })
-        }
-    })
-    slideList.style.transition = "none"
-    item.addEventListener("mousemove", mouseMove)
+function createSlideClones(){
+    const firstSlide = slideItems[0].cloneNode(true)
+    firstSlide.classList.add("slide-cloned")
+    const secondSlide = slideItems[1].cloneNode(true)
+    secondSlide.classList.add("slide-cloned")
+    const lastSlide = slideItems[slideItems.length - 1].cloneNode(true)
+    lastSlide.classList.add("slide-cloned")
+    const penultimateSlide = slideItems[slideItems.length - 2].cloneNode(true)
+    penultimateSlide.classList.add("slide-cloned")
+    slideLista.appendChild(firstSlide)
+    slideLista.appendChild(secondSlide)
+    slideLista.prepend(lastSlide)
+    slideLista.prepend(penultimateSlide)
 
-    console.log(state.inicialPoint)
+    slideItems = document.querySelectorAll('.slide-item')
 }
 
-
-function mouseMove(event){
-    const position = event.clientX - state.currentPosition
-    state.moviment = event.clientX - state.inicialPoint
-    translateSlide(position)
+function onMouseDown(event, index){
+    const slideItem = event.currentTarget
+    state.startingPoint = event.clientX
+    state.currentPoint = event.clientX - state.savedPosition
+    slideItem.addEventListener('mousemove', onMouseMove)
+    state.currentSlideIndex = index
+    slideLista.style.transition = "none" // A cada píxel que você arrasta o transition é chamado. Por isso coloque em none quando arrastar.
+    
 }
 
-function mouseUp(event){
+function onMouseMove(event){
+    state.moviment = event.clientX - state.startingPoint
+    const position = event.clientX - state.currentPoint
+    translateSlide({position: position})
+}
+
+function onMouseUp(event){
+    const pointsToMove = event.type.includes("touch") ? 50: 150
+    //console.log(event.type)
     const slideItem = event.currentTarget
     const slideWidth = slideItem.clientWidth
-    if(state.moviment < - 150){
+    //console.log(slideWidth)
+    if(state.moviment < -pointsToMove){
         nextSlide()
-    }
-    if(state.moviment > 150){
+    } else if(state.moviment > pointsToMove){
         previousSlide()
-    }else{
-        setVisibleSlide(state.indexAtual, true)
+    } else{
+        setVisibleSlide({index: state.currentSlideIndex, animate: true})
     }
     
-    slideItem.removeEventListener("mousemove", mouseMove)
+    slideItem.removeEventListener('mousemove', onMouseMove)
+    console.log('Soltei o botão do mouse')
+}
+
+function onTouchStart(event, index){
+    event.clientX = event.touches[0].clientX
+    onMouseDown(event, index)
+    const slideItem = event.currentTarget
+    slideItem.addEventListener('touchmove', onTouchMove)
+}
+
+function onTouchMove(event){
+    event.clientX = event.touches[0].clientX
+    onMouseMove(event)
+}
+
+function onTouchEnd(event){
+    onMouseUp(event)
+    const slideItem = event.currentTarget
+    slideItem.removeEventListener('touchmove', onTouchMove)
 }
 
 function onSlideListTransitionEnd(){
-    
-    if(state.indexAtual === slideItems.length - 2){
-        console.log(state.indexAtual)
-        setVisibleSlide(2, false)
+    const slideItem = slideItems[state.currentSlideIndex]
+    if(slideItem.classList.contains("slide-cloned") && state.currentSlideIndex === slideItems.length - 2){
+        setVisibleSlide({index: 2, animate: false})
     }
-    if(state.indexAtual ===  1){
-        console.log(state.indexAtual)
-        setVisibleSlide(slideItems.length - 3, false)
+    if(slideItem.classList.contains("slide-cloned") && state.currentSlideIndex === 1){
+        setVisibleSlide({index: slideItems.length - 3, animate: false})
     }
 }
 
-slideItems.forEach((item, index)=>{
-    item.addEventListener("dragstart", (event)=>{
-        event.preventDefault()
+function setAutoPlay(){
+    if(state.autoPlay){
+        slideInterval = setInterval(function(){
+            setVisibleSlide({index: state.currentSlideIndex + 1, animate: true})
+        }, state.timeInterval)
+    }
+}
+
+
+function setListeners(){
+    slideItems.forEach(function(slideItem, index){
+        slideItem.addEventListener("dragstart", function(event){
+            event.preventDefault()
+        })
+        slideItem.addEventListener('mousedown', function(event){
+            onMouseDown(event, index)
+        })
+        slideItem.addEventListener('mouseup', onMouseUp)
+        slideItem.addEventListener('touchstart', function(event){
+            onTouchStart(event, index)
+        })
+        slideItem.addEventListener('touchend', onTouchEnd)
+        
     })
 
-    item.addEventListener("mouseup", mouseUp)
-
-    item.addEventListener("mousedown", (event)=>{
-        mouseDown(event, index)
+    nextButton.addEventListener("click", nextSlide)
+    prevButton.addEventListener("click", previousSlide)
+    slideLista.addEventListener("transitionend", onSlideListTransitionEnd)
+    slidesTamanho.addEventListener("mouseenter", function(){
+        clearInterval(slideInterval)
     })
-    
-})
+    slidesTamanho.addEventListener("mouseleave", function(){
+        setAutoPlay()
+    })
+    let resizeTimeout
+    window.addEventListener("resize", function(){
+        clearTimeout(resizeTimeout)
+        resizeTimeout = setTimeout(function(){
+            setVisibleSlide({index: state.currentSlideIndex, animate: true})
+        },1000)
+        
+    })
+}
 
-nextSlideButton.addEventListener("click", nextSlide)
-previousSlideButton.addEventListener("click", previousSlide)
+function initSlider({startAtIndex = 0, autoPlay = true, timeInterval = 3000}){
+    state.autoPlay = autoPlay
+    state.timeInterval = timeInterval
+    createSlideClones()
+    setListeners()
+    setVisibleSlide({ index: startAtIndex + 2, animate: true})
+    setAutoPlay()
+}
 
-slideList.addEventListener("transitionend", onSlideListTransitionEnd)
 
-
-setVisibleSlide(index = 2, true)
