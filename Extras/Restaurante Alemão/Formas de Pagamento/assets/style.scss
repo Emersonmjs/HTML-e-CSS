@@ -1,3 +1,63 @@
 @charset "UTF-8";
 @import "../../padroes/variaveis.scss";
 @import "../../padroes/componentes.scss";
+
+*{
+    @include padrao;
+}
+
+::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+#voltar{
+    @include voltar;
+    .progresso-total{
+
+        .progresso{
+            width: 90%;
+        }
+    }
+}
+
+section{
+    padding-top: 30px;
+    h2{
+        margin-left: 5px;
+    }
+    
+}
+
+#pedido-total-parte{
+    width: 98%;
+    height: 200px;
+    margin-left: 5px;
+    margin-right: 10px;
+    display: flex;
+    background-color: $cor-de-feedback;
+    box-sizing: content-box;
+    padding-top: 15px;
+    padding-left: 10px;
+    #detalhes-pedido-final,h4,div,p{
+        background-color: $cor-de-feedback;
+    }
+    #detalhes-pedido-final{
+        margin-left: 10px;
+    }
+    .itens{
+        height: calc(100% - 73px);
+    }
+
+    #total-final{
+        position: relative;
+        left: -200px;
+    }
+    img{
+        position: relative;
+        height: calc(100% - 40px);
+        border-radius: 8px;
+    }
+    margin-bottom: 45px;
+    
+}

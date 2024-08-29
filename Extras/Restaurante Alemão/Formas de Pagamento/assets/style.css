@@ -1,4 +1,79 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kavoon&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kavoon&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #fcfcff;
+  font-family: inter;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+#voltar {
+  border-bottom: 1px solid black;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.178);
+  border: none;
+}
+#voltar img {
+  width: 40px;
+  margin-left: 5px;
+}
+#voltar .progresso-total {
+  background-color: rgba(240, 239, 239, 0.466);
+  border-top: 2px solid black;
+  border-bottom: 0px;
+}
+#voltar .progresso-total .progresso {
+  background-color: #0cbaba;
+  height: 7px;
+  width: 50px;
+  border-bottom: none;
+  z-index: 2;
+}
+#voltar .progresso-total .progresso {
+  width: 90%;
+}
+
+section {
+  padding-top: 30px;
+}
+section h2 {
+  margin-left: 5px;
+}
+
+#pedido-total-parte {
+  width: 98%;
+  height: 200px;
+  margin-left: 5px;
+  margin-right: 10px;
+  display: flex;
+  background-color: #0cbaba;
+  box-sizing: content-box;
+  padding-top: 15px;
+  padding-left: 10px;
+  margin-bottom: 45px;
+}
+#pedido-total-parte #detalhes-pedido-final, #pedido-total-parte h4, #pedido-total-parte div, #pedido-total-parte p {
+  background-color: #0cbaba;
+}
+#pedido-total-parte #detalhes-pedido-final {
+  margin-left: 10px;
+}
+#pedido-total-parte .itens {
+  height: calc(100% - 73px);
+}
+#pedido-total-parte #total-final {
+  position: relative;
+  left: -200px;
+}
+#pedido-total-parte img {
+  position: relative;
+  height: calc(100% - 40px);
+  border-radius: 8px;
+}
 
 /*# sourceMappingURL=style.css.map */
