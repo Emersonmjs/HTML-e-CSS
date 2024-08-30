@@ -46,34 +46,55 @@ section h2 {
 }
 
 #pedido-total-parte {
-  width: 98%;
-  height: 200px;
   margin-left: 5px;
-  margin-right: 10px;
+  margin-right: 5px;
   display: flex;
-  background-color: #0cbaba;
+  background-color: rgba(12, 186, 186, 0.1294117647);
   box-sizing: content-box;
   padding-top: 15px;
   padding-left: 10px;
+  border-radius: 5px;
   margin-bottom: 45px;
 }
 #pedido-total-parte #detalhes-pedido-final, #pedido-total-parte h4, #pedido-total-parte div, #pedido-total-parte p {
-  background-color: #0cbaba;
+  background-color: transparent;
 }
 #pedido-total-parte #detalhes-pedido-final {
   margin-left: 10px;
 }
+#pedido-total-parte #detalhes-pedido-final h4 {
+  margin-bottom: 6px;
+}
 #pedido-total-parte .itens {
-  height: calc(100% - 73px);
+  font-size: 0.9rem;
+}
+#pedido-total-parte .itens p {
+  margin-bottom: 6px;
 }
 #pedido-total-parte #total-final {
   position: relative;
-  left: -200px;
+  left: -130px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  bottom: 5px;
+  margin-bottom: 5px;
 }
 #pedido-total-parte img {
   position: relative;
-  height: calc(100% - 40px);
+  width: calc(100% - 180px);
+  height: 106px;
   border-radius: 8px;
+}
+
+.opcao {
+  display: flex;
+  border-top: 1px solid black;
+  align-items: center;
+}
+.opcao img, .opcao #dinheiro-forma {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
