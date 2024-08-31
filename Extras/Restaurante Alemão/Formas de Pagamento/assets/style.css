@@ -43,14 +43,15 @@ section {
 }
 section h2 {
   margin-left: 5px;
+  margin-bottom: 15px;
 }
 
 #pedido-total-parte {
-  margin-left: 5px;
-  margin-right: 5px;
-  display: flex;
   background-color: rgba(12, 186, 186, 0.1294117647);
   box-sizing: content-box;
+  width: 94%;
+  margin-left: 5px;
+  margin-right: 5px;
   padding-top: 15px;
   padding-left: 10px;
   border-radius: 5px;
@@ -60,7 +61,7 @@ section h2 {
   background-color: transparent;
 }
 #pedido-total-parte #detalhes-pedido-final {
-  margin-left: 10px;
+  display: flex;
 }
 #pedido-total-parte #detalhes-pedido-final h4 {
   margin-bottom: 6px;
@@ -72,29 +73,62 @@ section h2 {
   margin-bottom: 6px;
 }
 #pedido-total-parte #total-final {
-  position: relative;
-  left: -130px;
   font-size: 1.3rem;
   font-weight: bold;
+  position: relative;
   bottom: 5px;
-  margin-bottom: 5px;
 }
 #pedido-total-parte img {
   position: relative;
-  width: calc(100% - 180px);
+  width: calc(100% - 170px);
   height: 106px;
+  margin-right: 6px;
   border-radius: 8px;
+}
+
+#opcoes-de-pagamento {
+  border-bottom: 1px solid black;
+  margin-bottom: 45px;
 }
 
 .opcao {
   display: flex;
   border-top: 1px solid black;
-  align-items: center;
+  padding-top: 10px;
+  align-items: baseline;
+  padding-bottom: 10px;
 }
-.opcao img, .opcao #dinheiro-forma {
+.opcao p {
+  margin: auto 0;
+  font-size: 1.2em;
+}
+.opcao #dinheiro-forma {
   margin-right: 10px;
-  width: 20px;
-  height: 20px;
+  margin-left: 10px;
+  font-size: 24px;
+}
+.opcao img {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+#finalizar {
+  background-color: #e2294f;
+  text-decoration: none;
+  color: white;
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  width: 190px;
+  height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 20px;
+  padding-bottom: 2px;
 }
 
 /*# sourceMappingURL=style.css.map */

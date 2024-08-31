@@ -25,16 +25,17 @@ section{
     padding-top: 30px;
     h2{
         margin-left: 5px;
+        margin-bottom: 15px;
     }
     
 }
 
 #pedido-total-parte{
-    margin-left: 5px;
-    margin-right: 5px;
-    display: flex;
     background-color: #0cbaba21;
     box-sizing: content-box;
+    width: 94%;
+    margin-left: 5px;
+    margin-right: 5px;
     padding-top: 15px;
     padding-left: 10px;
     border-radius: 5px;
@@ -42,7 +43,7 @@ section{
         background-color: transparent;
     }
     #detalhes-pedido-final{
-        margin-left: 10px;
+        display: flex;
         h4{
             margin-bottom: 6px;
         }
@@ -57,32 +58,55 @@ section{
     }
 
     #total-final{
-        position: relative;
-        left: -130px;
         font-size: 1.3rem;
         font-weight: bold;
+        position: relative;
         bottom: 5px;
-        margin-bottom: 5px;
     }
+
+
     img{
         position: relative;
-        width: calc(100% - 180px);
+        width: calc(100% - 170px);
         height: 106px;
+        margin-right: 6px;
         border-radius: 8px;
     }
     margin-bottom: 45px;
     
 }
 
+#opcoes-de-pagamento{
+    border-bottom: 1px solid black;
+    margin-bottom: 45px;
+}
 
 .opcao{
     display: flex;
     border-top: 1px solid black;
-    align-items: center;
-    img,#dinheiro-forma{
+    padding-top: 10px;
+    align-items: baseline;
+    padding-bottom: 10px;
+    p{
+        margin: auto 0;
+        font-size: 1.2em;
+    }
+    #dinheiro-forma{
         margin-right: 10px;
-        width: 20px;
-        height: 20px;
+        margin-left: 10px;
+        font-size: 24px;
+    }
+    img{
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
     }
 
+}
+
+
+
+#finalizar{
+    @include botao-cta;
 }
