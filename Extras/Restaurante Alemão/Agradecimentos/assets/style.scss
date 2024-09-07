@@ -1,0 +1,111 @@
+@charset "UTF-8";
+@import "../../padroes/variaveis.scss";
+@import "../../padroes/componentes.scss";
+
+*{
+    @include padrao;
+}
+
+::-webkit-scrollbar{
+    height: 0;
+    width: 0;
+}
+
+#voltar-final{
+    display: flex;
+    justify-content: space-between;
+    h1{
+        font-size: 2.3em;
+        font-weight: bolder;
+        margin: 13px 0px 15px $espacamento-padrao;
+    }
+    img{
+        width: 40px;
+    }
+    
+}
+
+main > h2{
+    font-weight: bold;
+    margin-left: $espacamento-padrao;
+    margin-bottom: 35px;
+}
+
+#informacoes-do-pedido{
+    padding-left: $espacamento-padrao;
+    h3{
+        font-size: 1.25em;
+    }
+}
+
+.pedido{
+    margin-bottom: 35px;
+}
+
+#detalhes-pedido{
+   display: flex;
+   p{
+    margin: 0px 0px 0px 5px;
+   }
+}
+
+#local-de-entrega-pedido{
+    margin-bottom: 20px;
+    #detalhes-local-entrega{
+        display: flex;
+       p{
+        margin: 0px 0px 0px 5px;
+       }
+    }
+    output{
+        margin-top: 8px;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+}
+
+
+.tamanho-imagem{
+    width: 100px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+#forma-de-pagamento-escolhida{
+    div{
+        background-color: #0cbaba6c;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        margin-right: $espacamento-padrao;
+        border-radius: 5px;
+        margin-bottom: 23px;
+        p{
+            background-color: transparent;
+            margin: 0px 0px 0px 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+}
+
+#gerar-comprovante-pagamento{
+    background-color: rgba(128, 128, 128, 0.363);
+    width: 180px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    a{
+        background-color: transparent;
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
+
+#Voltar-pagina-inicial{
+    @include botao-cta;
+}
