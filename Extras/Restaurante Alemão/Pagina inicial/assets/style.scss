@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import "../../padroes/variaveis.scss";
+@import "../../padroes/componentes.scss";
 
 
 
@@ -106,11 +107,7 @@
 }
 
 #slide-wrapper{
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include flex-slide;
     button{
         border: none;
         z-index: 2;
@@ -218,6 +215,49 @@
             width: 43px;
             height: 43px;
             
+        }
+    }
+}
+
+#slide-wrapper-popular{
+    @include flex-slide;
+    #slide-list-popular{
+        display: flex;
+        
+    }
+}
+
+.slide-item-popular{
+    margin-left: 5px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 150px;
+}
+
+.slide-content-popular{
+    
+    p{
+        white-space: nowrap;
+    }
+    img{
+        width: 150px;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #previous-slide{
+        display: none;
+        span{
+            display: none;
+        }
+    }
+
+    #next-slide{
+        display: none;
+        span{
+            display: none;
         }
     }
 }

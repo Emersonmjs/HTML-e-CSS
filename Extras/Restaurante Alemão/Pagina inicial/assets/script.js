@@ -6,6 +6,7 @@ const prevButton = document.querySelector('#previous-slide')
 let slideInterval
 
 
+
 const state = {
     startingPoint: 0,
     savedPosition: 0,
@@ -83,7 +84,7 @@ function onMouseMove(event){
 }
 
 function onMouseUp(event){
-    const pointsToMove = event.type.includes("touch") ? 50: 150
+    const pointsToMove = event.type.includes("touch") ? 30: 150
     //console.log(event.type)
     const slideItem = event.currentTarget
     const slideWidth = slideItem.clientWidth
