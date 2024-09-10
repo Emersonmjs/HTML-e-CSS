@@ -65,71 +65,75 @@ function previousSlide(state, slideItemsArray, slideListaArray){
     setVisibleSlide({index: state.currentSlideIndex - 1, animate: true, slideItemsArray, state, slideListaArray});
 }
 
-function createSlideClones(){
-    const firstSlide = slideItems[0].cloneNode(true)
+function createSlideClones({slideItemsArray, slideListaArray}){
+    const firstSlide = slideItemsArray[0].cloneNode(true)
     firstSlide.classList.add("slide-cloned")
-    const secondSlide = slideItems[1].cloneNode(true)
+    const secondSlide = slideItemsArray[1].cloneNode(true)
     secondSlide.classList.add("slide-cloned")
-    const lastSlide = slideItems[slideItems.length - 1].cloneNode(true)
+    const lastSlide = slideItemsArray[slideItemsArray.length - 1].cloneNode(true)
     lastSlide.classList.add("slide-cloned")
-    const penultimateSlide = slideItems[slideItems.length - 2].cloneNode(true)
+    const penultimateSlide = slideItemsArray[slideItemsArray.length - 2].cloneNode(true)
     penultimateSlide.classList.add("slide-cloned")
-    slideLista.appendChild(firstSlide)
-    slideLista.appendChild(secondSlide)
-    slideLista.prepend(lastSlide)
-    slideLista.prepend(penultimateSlide)
+    slideListaArray.appendChild(firstSlide)
+    slideListaArray.appendChild(secondSlide)
+    slideListaArray.prepend(lastSlide)
+    slideListaArray.prepend(penultimateSlide)
 
-    slideItems = document.querySelectorAll('.slide-item')
+    slideItemsArray = document.querySelectorAll('.slide-item')
 }
 
-function onMouseDown(event, index){
+function onMouseDown(event, index, state, slideListaArray){
     const slideItem = event.currentTarget
-    statePrincipal.startingPoint = event.clientX
-    statePrincipal.currentPoint = event.clientX - statePrincipal.savedPosition
-    slideItem.addEventListener('mousemove', onMouseMove)
-    statePrincipal.currentSlideIndex = index
-    slideLista.style.transition = "none" // A cada píxel que você arrasta o transition é chamado. Por isso coloque em none quando arrastar.
+    state.startingPoint = event.clientX
+    state.currentPoint = event.clientX - state.savedPosition
+    slideItem.addEventListener('mousemove', function(event){
+        onMouseMove(event, state)
+    })
+    state.currentSlideIndex = index
+    slideListaArray.style.transition = "none" // A cada píxel que você arrasta o transition é chamado. Por isso coloque em none quando arrastar.
     
 }
 
-function onMouseMove(event){
-    statePrincipal.moviment = event.clientX - statePrincipal.startingPoint
-    const position = event.clientX - statePrincipal.currentPoint
+function onMouseMove(event, state){
+    state.moviment = event.clientX - state.startingPoint
+    const position = event.clientX - state.currentPoint
     translateSlide({position: position})
 }
 
-function onMouseUp(event){
+function onMouseUp(event, state, slideItemsArray, slideListaArray){
     const pointsToMove = event.type.includes("touch") ? 30: 150
     //console.log(event.type)
     const slideItem = event.currentTarget
     const slideWidth = slideItem.clientWidth
     //console.log(slideWidth)
-    if(statePrincipal.moviment < -pointsToMove){
-        nextSlide(statePrincipal, slideItems, slideLista)
-    } else if(statePrincipal.moviment > pointsToMove){
-        previousSlide(statePrincipal, slideItems, slideLista)
+    if(state.moviment < -pointsToMove){
+        nextSlide(state, slideItemsArray, slideListaArray)
+    } else if(state.moviment > pointsToMove){
+        previousSlide(state, slideItemsArray, slideListaArray)
     } else{
-        setVisibleSlide({index: statePrincipal.currentSlideIndex, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
+        setVisibleSlide({index: state.currentSlideIndex, animate: true, slideItemsArray, state, slideListaArray})
     }
     
     slideItem.removeEventListener('mousemove', onMouseMove)
     console.log('Soltei o botão do mouse')
 }
 
-function onTouchStart(event, index){
+function onTouchStart(event, index, state, slideItemsArray){
     event.clientX = event.touches[0].clientX
-    onMouseDown(event, index)
+    onMouseDown(event, index, state, slideItemsArray)
     const slideItem = event.currentTarget
-    slideItem.addEventListener('touchmove', onTouchMove)
+    slideItem.addEventListener('touchmove', function(){
+        onTouchMove(event, state)
+    })
 }
 
-function onTouchMove(event){
+function onTouchMove(event, state){
     event.clientX = event.touches[0].clientX
-    onMouseMove(event)
+    onMouseMove(event, state)
 }
 
-function onTouchEnd(event){
-    onMouseUp(event)
+function onTouchEnd(event, state, slideItemsArray, slideListaArray){
+    onMouseUp(event, state, slideItemsArray, slideListaArray) //Continuar a partir daqui.
     const slideItem = event.currentTarget
     slideItem.removeEventListener('touchmove', onTouchMove)
 }
@@ -153,49 +157,62 @@ function setAutoPlay(){
 }
 
 
-function setListeners(){
-    slideItems.forEach(function(slideItem, index){
+function setListeners({slideItemsArray, slideListaArray, slideTamanhoGeral, state}){
+    slideItemsArray.forEach(function(slideItem, index){
         slideItem.addEventListener("dragstart", function(event){
             event.preventDefault()
         })
         slideItem.addEventListener('mousedown', function(event){
             console.log(slideItem[0])
-            onMouseDown(event, index)
+            onMouseDown(event, index, state, slideListaArray)
         })
-        slideItem.addEventListener('mouseup', onMouseUp)
+        slideItem.addEventListener('mouseup', function(event){
+            onMouseUp(event, state, slideItemsArray, slideListaArray)
+        })
         slideItem.addEventListener('touchstart', function(event){
-            onTouchStart(event, index)
+            onTouchStart(event, index, state, slideListaArray)
         })
-        slideItem.addEventListener('touchend', onTouchEnd)
+        slideItem.addEventListener('touchend', function(event){
+            onTouchEnd(event, state, slideItemsArray, slideListaArray)
+        })
         
     })
-
-    nextButton.addEventListener("click", nextSlide)
-    prevButton.addEventListener("click", previousSlide)
-    slideLista.addEventListener("transitionend", onSlideListTransitionEnd)
-    slidesTamanho.addEventListener("mouseenter", function(){
-        clearInterval(slideInterval)
-    })
-    slidesTamanho.addEventListener("mouseleave", function(){
-        setAutoPlay()
-    })
-    let resizeTimeout
-    window.addEventListener("resize", function(){
-        clearTimeout(resizeTimeout)
-        resizeTimeout = setTimeout(function(){
-            setVisibleSlide({index: statePrincipal.currentSlideIndex, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
-        },1000)
+    if(slideItemsArray === slideItems){
+        nextButton.addEventListener("click", nextSlide)
+        prevButton.addEventListener("click", previousSlide)
+    }
+    slideListaArray.addEventListener("transitionend", onSlideListTransitionEnd)
+    if(slideItemsArray === slideItems){
+        slideTamanhoGeral.addEventListener("mouseenter", function(){
+            clearInterval(slideInterval)
+        })
+        slideTamanhoGeral.addEventListener("mouseleave", function(){
+            setAutoPlay()
+        })
+        let resizeTimeout
+        window.addEventListener("resize", function(){
+            clearTimeout(resizeTimeout)
+            resizeTimeout = setTimeout(function(){
+                setVisibleSlide({index: statePrincipal.currentSlideIndex, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
+            },1000)
         
-    })
+        })
+    }
 }
 
-function initSlider({startAtIndex = 0, autoPlay = true, timeInterval = 3000}){
+function initSliderPrincipal({startAtIndex = 0, autoPlay = true, timeInterval = 3000}){
     statePrincipal.autoPlay = autoPlay
     statePrincipal.timeInterval = timeInterval
-    createSlideClones()
-    setListeners()
+    createSlideClones({slideItemsArray: slideItems, slideListaArray: slideLista})
+    setListeners({slideItemsArray: slideItems, slideListaArray: slideLista, slideTamanhoGeral: slidesTamanho, state: statePrincipal})
     setVisibleSlide({ index: startAtIndex + 2, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
     setAutoPlay()
+}
+
+function initSliderSecundario({startAtIndex = 0}){
+    createSlideClones({slideItemsArray: slideItemsPopular, slideListaArray: slideListaPopular})
+    setListeners({slideItemsArray: slideItemsPopular, slideListaArray: slideListaPopular, slideTamanhoGeral: slideTamanhoPopular, state: statePopular})
+    setVisibleSlide({ index: startAtIndex + 2, animate: true, slideItemsArray: slideItemsPopular, state: statePopular, slideListaArray: slideListaPopular})
 }
 
 
