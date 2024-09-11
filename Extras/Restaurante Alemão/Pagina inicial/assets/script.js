@@ -31,6 +31,7 @@ const statePopular = {
 }
 
 function translateSlide({position, state, lista}){
+    console.log(state.savedPosition)
     state.savedPosition = position; // Mudei para usar o `state` passado por parâmetro
     lista.style.transform = `translateX(${position}px)`; // Mudei para usar o `lista` passado por parâmetro
 }
@@ -52,6 +53,7 @@ function setVisibleSlide({index, animate, slideItemsArray, state, slideListaArra
     }
     const position = getCenterPosition({index, slideItemsArray}); // Passe `slideItemsArray` aqui
     state.currentSlideIndex = index;
+    console.log(index)
     slideListaArray.style.transition = animate ? "transform .5s" : "none";
     translateSlide({position: -position, state, lista: slideListaArray}); // Atualize o translateSlide para usar o `state` e `lista` corretos
 }
@@ -94,10 +96,10 @@ function onMouseDown(event, index, state, slideListaArray){
     
 }
 
-function onMouseMove(event, state){
+function onMouseMove(event, state, slideListaArray){
     state.moviment = event.clientX - state.startingPoint
     const position = event.clientX - state.currentPoint
-    translateSlide({position: position})
+    translateSlide({position: position, lista: slideListaArray})
 }
 
 function onMouseUp(event, state, slideItemsArray, slideListaArray){
@@ -118,18 +120,18 @@ function onMouseUp(event, state, slideItemsArray, slideListaArray){
     console.log('Soltei o botão do mouse')
 }
 
-function onTouchStart(event, index, state, slideItemsArray){
+function onTouchStart(event, index, state, slideItemsArray, slideListaArray){
     event.clientX = event.touches[0].clientX
     onMouseDown(event, index, state, slideItemsArray)
     const slideItem = event.currentTarget
     slideItem.addEventListener('touchmove', function(){
-        onTouchMove(event, state)
+        onTouchMove(event, state, slideListaArray)
     })
 }
 
-function onTouchMove(event, state){
+function onTouchMove(event, state, slideListaArray){
     event.clientX = event.touches[0].clientX
-    onMouseMove(event, state)
+    onMouseMove(event, state, slideListaArray)
 }
 
 function onTouchEnd(event, state, slideItemsArray, slideListaArray){
@@ -138,15 +140,16 @@ function onTouchEnd(event, state, slideItemsArray, slideListaArray){
     slideItem.removeEventListener('touchmove', onTouchMove)
 }
 
-function onSlideListTransitionEnd(){
-    const slideItem = slideItems[statePrincipal.currentSlideIndex]
-    if(slideItem.classList.contains("slide-cloned") && statePrincipal.currentSlideIndex === slideItems.length - 2){
-        setVisibleSlide({index: 2, animate: false, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
+function onSlideListTransitionEnd(state, slideItemsArray, slideListaArray){
+    const slideItem = slideItemsArray[state.currentSlideIndex];
+    if(slideItem.classList.contains("slide-cloned") && state.currentSlideIndex === slideItemsArray.length - 2){
+        setVisibleSlide({index: 2, animate: false, slideItemsArray, state, slideListaArray});
     }
-    if(slideItem.classList.contains("slide-cloned") && statePrincipal.currentSlideIndex === 1){
-        setVisibleSlide({index: slideItems.length - 3, animate: false, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
+    if(slideItem.classList.contains("slide-cloned") && state.currentSlideIndex === 1){
+        setVisibleSlide({index: slideItemsArray.length - 3, animate: false, slideItemsArray, state, slideListaArray});
     }
 }
+
 
 function setAutoPlay(){
     if(statePrincipal.autoPlay){
@@ -157,62 +160,84 @@ function setAutoPlay(){
 }
 
 
-function setListeners({slideItemsArray, slideListaArray, slideTamanhoGeral, state}){
+function setListeners({slideItemsArray, slideListaArray, slideTamanhoGeral, state, nextBtn, prevBtn}){
     slideItemsArray.forEach(function(slideItem, index){
         slideItem.addEventListener("dragstart", function(event){
-            event.preventDefault()
-        })
+            event.preventDefault();
+        });
         slideItem.addEventListener('mousedown', function(event){
-            console.log(slideItem[0])
-            onMouseDown(event, index, state, slideListaArray)
-        })
+            onMouseDown(event, index, state, slideListaArray);
+        });
         slideItem.addEventListener('mouseup', function(event){
-            onMouseUp(event, state, slideItemsArray, slideListaArray)
-        })
+            onMouseUp(event, state, slideItemsArray, slideListaArray);
+        });
         slideItem.addEventListener('touchstart', function(event){
-            onTouchStart(event, index, state, slideListaArray)
-        })
+            onTouchStart(event, index, state, slideListaArray);
+        });
         slideItem.addEventListener('touchend', function(event){
-            onTouchEnd(event, state, slideItemsArray, slideListaArray)
-        })
-        
-    })
-    if(slideItemsArray === slideItems){
-        nextButton.addEventListener("click", nextSlide)
-        prevButton.addEventListener("click", previousSlide)
+            onTouchEnd(event, state, slideItemsArray, slideListaArray);
+        });
+    });
+
+    // Adicione os listeners para os botões de navegação específicos de cada slider
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener("click", function(){
+            nextSlide(state, slideItemsArray, slideListaArray);
+        });
+        prevBtn.addEventListener("click", function(){
+            previousSlide(state, slideItemsArray, slideListaArray);
+        });
     }
-    slideListaArray.addEventListener("transitionend", onSlideListTransitionEnd)
-    if(slideItemsArray === slideItems){
-        slideTamanhoGeral.addEventListener("mouseenter", function(){
-            clearInterval(slideInterval)
-        })
-        slideTamanhoGeral.addEventListener("mouseleave", function(){
-            setAutoPlay()
-        })
-        let resizeTimeout
-        window.addEventListener("resize", function(){
-            clearTimeout(resizeTimeout)
-            resizeTimeout = setTimeout(function(){
-                setVisibleSlide({index: statePrincipal.currentSlideIndex, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
-            },1000)
-        
-        })
-    }
+
+    slideListaArray.addEventListener("transitionend", function(){
+        onSlideListTransitionEnd(state, slideItemsArray, slideListaArray);
+    });
+
+    slideTamanhoGeral.addEventListener("mouseenter", function(){
+        clearInterval(slideInterval);
+    });
+    slideTamanhoGeral.addEventListener("mouseleave", function(){
+        setAutoPlay(state, slideItemsArray, slideListaArray);
+    });
+
+    let resizeTimeout;
+    window.addEventListener("resize", function(){
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function(){
+            setVisibleSlide({index: state.currentSlideIndex, animate: true, slideItemsArray, state, slideListaArray});
+        }, 1000);
+    });
 }
 
+
 function initSliderPrincipal({startAtIndex = 0, autoPlay = true, timeInterval = 3000}){
-    statePrincipal.autoPlay = autoPlay
-    statePrincipal.timeInterval = timeInterval
-    createSlideClones({slideItemsArray: slideItems, slideListaArray: slideLista})
-    setListeners({slideItemsArray: slideItems, slideListaArray: slideLista, slideTamanhoGeral: slidesTamanho, state: statePrincipal})
-    setVisibleSlide({ index: startAtIndex + 2, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista})
-    setAutoPlay()
+    statePrincipal.autoPlay = autoPlay;
+    statePrincipal.timeInterval = timeInterval;
+    createSlideClones({slideItemsArray: slideItems, slideListaArray: slideLista});
+    setListeners({
+        slideItemsArray: slideItems,
+        slideListaArray: slideLista,
+        slideTamanhoGeral: slidesTamanho,
+        state: statePrincipal,
+        nextBtn: nextButton,  // Passando botões específicos
+        prevBtn: prevButton
+    });
+    setVisibleSlide({ index: startAtIndex + 2, animate: true, slideItemsArray: slideItems, state: statePrincipal, slideListaArray: slideLista });
+    setAutoPlay();
 }
 
 function initSliderSecundario({startAtIndex = 0}){
-    createSlideClones({slideItemsArray: slideItemsPopular, slideListaArray: slideListaPopular})
-    setListeners({slideItemsArray: slideItemsPopular, slideListaArray: slideListaPopular, slideTamanhoGeral: slideTamanhoPopular, state: statePopular})
-    setVisibleSlide({ index: startAtIndex + 2, animate: true, slideItemsArray: slideItemsPopular, state: statePopular, slideListaArray: slideListaPopular})
+    createSlideClones({slideItemsArray: slideItemsPopular, slideListaArray: slideListaPopular});
+    setListeners({
+        slideItemsArray: slideItemsPopular,
+        slideListaArray: slideListaPopular,
+        slideTamanhoGeral: slideTamanhoPopular,
+        state: statePopular,
+        nextBtn: null,  // Se não houver botões de navegação para o secundário, passe null
+        prevBtn: null
+    });
+    setVisibleSlide({ index: startAtIndex + 2, animate: true, slideItemsArray: slideItemsPopular, state: statePopular, slideListaArray: slideListaPopular });
 }
+
 
 
