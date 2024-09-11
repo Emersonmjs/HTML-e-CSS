@@ -9,8 +9,12 @@ const prevButton = document.querySelector('#previous-slide')
 let slideInterval
 
 
+<<<<<<< HEAD
 
 const statePrincipal = {
+=======
+const state = {
+>>>>>>> parent of 14008e8 (Arrumaçao da mais populares)
     startingPoint: 0,
     savedPosition: 0,
     currentPoint: 0,
@@ -102,8 +106,13 @@ function onMouseMove(event, state, slideListaArray){
     translateSlide({position: position, lista: slideListaArray})
 }
 
+<<<<<<< HEAD
 function onMouseUp(event, state, slideItemsArray, slideListaArray){
     const pointsToMove = event.type.includes("touch") ? 30: 150
+=======
+function onMouseUp(event){
+    const pointsToMove = event.type.includes("touch") ? 50: 150
+>>>>>>> parent of 14008e8 (Arrumaçao da mais populares)
     //console.log(event.type)
     const slideItem = event.currentTarget
     const slideWidth = slideItem.clientWidth

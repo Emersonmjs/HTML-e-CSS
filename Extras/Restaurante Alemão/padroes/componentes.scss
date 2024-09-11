@@ -15,14 +15,6 @@
     padding-bottom: 2px;
 }
 
-@mixin flex-slide{
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 @mixin search{
     padding-top: 10px;
     margin-bottom: 0px;
